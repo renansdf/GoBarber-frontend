@@ -6,11 +6,13 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "@types/axios": "^0.14.0",
     "@types/yup": "^0.28.0",
     "@typescript-eslint/eslint-plugin": "^2.30.0",
     "@typescript-eslint/parser": "^2.30.0",
     "@unform/core": "^2.1.0",
     "@unform/web": "^2.1.0",
+    "axios": "^0.19.2",
     "eslint-config-airbnb": "^18.1.0",
     "eslint-plugin-import": "2.20.1",
     "eslint-plugin-jsx-a11y": "6.2.3",
@@ -22,6 +24,7 @@
     "react-icons": "^3.10.0",
     "react-scripts": "3.4.1",
     "styled-components": "^5.1.0",
+    "uuidv4": "^6.0.8",
     "yup": "^0.28.5"
   },
   "scripts": {

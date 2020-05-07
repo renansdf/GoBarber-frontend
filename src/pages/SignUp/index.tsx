@@ -1,18 +1,18 @@
 import React, { useCallback, useRef } from 'react';
 import { Container, Content, Background } from './styles';
-import logoImg from '../assets/logo.svg';
+import logoImg from '../../assets/logo.svg';
 import { FiArrowLeft, FiMail, FiLock, FiUser } from 'react-icons/fi';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
-import getValidationErrors from '../utils/getValidationErrors';
+import getValidationErrors from '../../utils/getValidationErrors';
 
 // Para fazer a validação do Form com o Yup, podemos
 // desestruturar o conteúdo do pacote, mas nesse caso
 // vamos importar todas as funções dentro de uma variável Yup
 import * as Yup from 'yup';
 
-import Input from '../components/Input';
-import Button from '../components/Button';
+import Input from '../../components/Input';
+import Button from '../../components/Button';
 
 const SignUp: React.FC = () => {
 
