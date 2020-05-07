@@ -5,8 +5,9 @@ import * as Yup from 'yup';
 import getValidationErrors from '../../utils/getValidationErrors';
 import { useAuth } from '../../hooks/auth';
 import { useToast } from '../../hooks/toast';
+import { Link } from 'react-router-dom';
 
-import { Container, Content, Background } from './styles';
+import { Container, Content, Background, AnimationContainer } from './styles';
 import logoImg from '../../assets/logo.svg';
 import { FiLogIn, FiMail, FiLock } from 'react-icons/fi';
 
@@ -63,6 +64,7 @@ const SignIn: React.FC = () => {
         // temos acesso a função setErrors que recebe um objeto e trabalha atribuindo
         // a mensagem de erro ao caminho determinados dentro do objeto recebido
         formRef.current?.setErrors(errors);
+        return
       }
 
       addToast({
@@ -76,21 +78,23 @@ const SignIn: React.FC = () => {
   return (
     <Container>
       <Content>
-        <img src={logoImg} alt="GoBarber" />
+        <AnimationContainer>
+          <img src={logoImg} alt="GoBarber" />
 
-        <Form ref={formRef} onSubmit={handleSubmit}>
-          <h1>Faça seu logon</h1>
-          <Input name="email" icon={FiMail} placeholder="E-mail" />
-          <Input name="password" icon={FiLock} type="password" placeholder="Senha" />
-          <Button type="submit">Entrar</Button>
+          <Form ref={formRef} onSubmit={handleSubmit}>
+            <h1>Faça seu logon</h1>
+            <Input name="email" icon={FiMail} placeholder="E-mail" />
+            <Input name="password" icon={FiLock} type="password" placeholder="Senha" />
+            <Button type="submit">Entrar</Button>
 
-          <a href="forgot">Esqueci minha senha</a>
-        </Form>
+            <a href="forgot">Esqueci minha senha</a>
+          </Form>
 
-        <a href="create">
-          <FiLogIn />
-          Criar conta
-        </a>
+          <Link to="/signup">
+            <FiLogIn />
+            Criar conta
+          </Link>
+        </AnimationContainer>
       </Content>
 
       <Background />

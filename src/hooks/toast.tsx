@@ -11,7 +11,7 @@ import ToastContainer from '../components/ToastContainer';
 // Tipagem base para a definição do conteúdo deste contexto
 interface ToastContextData {
   addToast(message: Omit<ToastMessage, 'id'>): void;
-  removeToast(): void;
+  removeToast(id: string): void;
 }
 
 export interface ToastMessage {
@@ -42,8 +42,8 @@ const ToastProvider: React.FC = ({ children }) => {
     setMessages((state) => [...state, toast]);
   }, []);
 
-  const removeToast = useCallback(() => {
-    console.log('removeToast');
+  const removeToast = useCallback((id: string) => {
+    setMessages((state) => state.filter(state => state.id !== id));
   }, []);
 
   return (

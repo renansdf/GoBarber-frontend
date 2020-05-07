@@ -1,10 +1,13 @@
 import React, { useCallback, useRef } from 'react';
-import { Container, Content, Background } from './styles';
+import { Container, Content, AnimationContainer, Background } from './styles';
 import logoImg from '../../assets/logo.svg';
 import { FiArrowLeft, FiMail, FiLock, FiUser } from 'react-icons/fi';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import getValidationErrors from '../../utils/getValidationErrors';
+import { Link, useHistory } from 'react-router-dom';
+import api from '../../services/api';
+import { useToast } from '../../hooks/toast';
 
 // Para fazer a validação do Form com o Yup, podemos
 // desestruturar o conteúdo do pacote, mas nesse caso
@@ -14,13 +17,22 @@ import * as Yup from 'yup';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
+interface SignUpData {
+  name: string;
+  email: string;
+  password: string;
+}
+
 const SignUp: React.FC = () => {
 
   const formRef = useRef<FormHandles>(null);
+  const { addToast } = useToast();
+  const history = useHistory();
 
   // por ser uma função dentro de um componente, usamos a notação
   // de useCallback do React
-  const handleSubmit = useCallback(async (data: object) => {
+  const handleSubmit = useCallback(async (data: SignUpData) => {
+
     try {
       // setErrors é uma função do Unform. Iniciamos ela com um valor vazio
       // na tentativa de validação. Mais sobre essa função no catch
@@ -43,35 +55,56 @@ const SignUp: React.FC = () => {
         abortEarly: false,
       });
 
+      await api.post('/users', data);
+
+      addToast({
+        type: 'success',
+        title: 'Cadastro Realizado!',
+        message: 'Você já pode realizar logon no GoBarber',
+      });
+
+      history.push('/');
+
     } catch (err) {
-      // Errors é um objeto contendo a key = path do elemento com erro e o value
-      // sendo a mensagem de erro associada a esse path no yup
-      const errors = getValidationErrors(err);
-      // No formulário, como tipamos o formRef com os formHandles do unform,
-      // temos acesso a função setErrors que recebe um objeto e trabalha atribuindo
-      // a mensagem de erro ao caminho determinados dentro do objeto recebido
-      formRef.current?.setErrors(errors);
+      if (err instanceof Yup.ValidationError) {
+        // Errors é um objeto contendo a key = path do elemento com erro e o value
+        // sendo a mensagem de erro associada a esse path no yup
+        const errors = getValidationErrors(err);
+        // No formulário, como tipamos o formRef com os formHandles do unform,
+        // temos acesso a função setErrors que recebe um objeto e trabalha atribuindo
+        // a mensagem de erro ao caminho determinados dentro do objeto recebido
+        formRef.current?.setErrors(errors);
+        return
+      }
+
+      addToast({
+        type: 'error',
+        title: 'Erro no castro',
+        message: 'Tente novamente',
+      });
     }
-  }, []);
+  }, [addToast, history]);
 
   return (
     <Container>
       <Background />
       <Content>
-        <img src={logoImg} alt="GoBarber" />
+        <AnimationContainer>
+          <img src={logoImg} alt="GoBarber" />
 
-        <Form ref={formRef} onSubmit={handleSubmit}>
-          <h1>Faça seu Cadastro</h1>
-          <Input name="name" icon={FiUser} placeholder="Nome" />
-          <Input name="email" icon={FiMail} placeholder="E-mail" />
-          <Input name="password" icon={FiLock} type="password" placeholder="Senha" />
-          <Button type="submit">Cadastrar</Button>
-        </Form>
+          <Form ref={formRef} onSubmit={handleSubmit}>
+            <h1>Faça seu Cadastro</h1>
+            <Input name="name" icon={FiUser} placeholder="Nome" />
+            <Input name="email" icon={FiMail} placeholder="E-mail" />
+            <Input name="password" icon={FiLock} type="password" placeholder="Senha" />
+            <Button type="submit">Cadastrar</Button>
+          </Form>
 
-        <a href="create">
-          <FiArrowLeft />
-          voltar para o Logon
-        </a>
+          <Link to="/">
+            <FiArrowLeft />
+            voltar para o Logon
+          </Link>
+        </AnimationContainer>
       </Content>
 
     </Container>
