@@ -46,6 +46,11 @@ const AuthProvider: React.FC = ({ children }) => {
 
     const { token, user } = response.data;
 
+    if (process.env.REACT_APP_API_URL && user.avatar_url.includes('undefined')) {
+      let appUrl: string = process.env.REACT_APP_API_URL;
+      user.avatar_url = user.avatar_url.replace('undefined', appUrl);
+    }
+
     localStorage.setItem('@GoBarber:token', token);
     localStorage.setItem('@GoBarber:user', JSON.stringify(user));
 
@@ -63,6 +68,11 @@ const AuthProvider: React.FC = ({ children }) => {
 
   const updateUser = useCallback((user: User) => {
     localStorage.setItem('@GoBarber:user', JSON.stringify(user));
+
+    if (process.env.REACT_APP_API_URL && user.avatar_url.includes('undefined')) {
+      let appUrl: string = process.env.REACT_APP_API_URL;
+      user.avatar_url = user.avatar_url.replace('undefined', appUrl);
+    }
 
     setData({
       token: data.token,
