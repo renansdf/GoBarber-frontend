@@ -1,5 +1,5 @@
 // A função deste arquivo é pegar os erros gerados pelo YUP, que estão
-// estruturados de uma complexa e robusta, e gerar um objeto do tipo
+// estruturados de uma forma complexa e robusta, e gerar um objeto do tipo
 // que o Unform precisa para setar os erros no formulário.
 // Esse objeto do Unform só precisa de um PATH (attr "name" do input com erro)
 // e uma MENSAGEM (setada por nós na validação do Yup).

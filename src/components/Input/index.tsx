@@ -11,10 +11,11 @@ import { useField } from '@unform/core';
 // sendo utilizado
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
+  containerStyle?: object;
   icon: React.ComponentType<IconBaseProps>;
 }
 
-const Input: React.FC<InputProps> = ({ name, icon: Icon, ...rest }) => {
+const Input: React.FC<InputProps> = ({ name, containerStyle, icon: Icon, ...rest }) => {
   // useRef do React nos permite referênciar um elemento HTML
   // que estamos criando dentro do componente. isso é útil toda
   // vez que precisamos manipular ou acessar algum elemento.
@@ -62,7 +63,7 @@ const Input: React.FC<InputProps> = ({ name, icon: Icon, ...rest }) => {
   }, [fieldName, registerField]);
 
   return (
-    <Container isErrored={!!error} isFilled={isFilled} isFocused={isFocused}>
+    <Container style={containerStyle} isErrored={!!error} isFilled={isFilled} isFocused={isFocused}>
       {Icon && <Icon size={20} />}
       <input
         onFocus={handleInputFocus}

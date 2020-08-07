@@ -9,14 +9,21 @@ import Route from './route';
 // uma página para declarar dentro de cada rota
 import signIn from '../pages/SignIn';
 import signUp from '../pages/SignUp';
+import ForgotPassword from '../pages/ForgotPassword';
+import ResetPassword from '../pages/ResetPassword';
+
 import Dashboard from '../pages/Dashboard';
+import Profile from '../pages/Profile';
 
 const Routes: React.FC = () => (
   <Switch>
     <Route path="/" exact component={signIn} />
     <Route path="/signup" component={signUp} />
+    <Route path="/forgot-password" component={ForgotPassword} />
+    <Route path="/reset-password" component={ResetPassword} />
 
-    <Route path="/Dashboard" component={Dashboard} isPrivate />
+    <Route path="/dashboard" component={Dashboard} isPrivate />
+    <Route path="/profile" component={Profile} isPrivate />
   </Switch>
 );
 
