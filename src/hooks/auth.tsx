@@ -48,7 +48,7 @@ const AuthProvider: React.FC = ({ children }) => {
 
     if (process.env.REACT_APP_API_URL && user.avatar_url.includes('undefined')) {
       let appUrl: string = process.env.REACT_APP_API_URL;
-      user.avatar_url = user.avatar_url.replace('undefined', appUrl);
+      user.avatar_url = user.avatar_url.replace('undefined/', appUrl);
     }
 
     localStorage.setItem('@GoBarber:token', token);
@@ -71,7 +71,7 @@ const AuthProvider: React.FC = ({ children }) => {
 
     if (process.env.REACT_APP_API_URL && user.avatar_url.includes('undefined')) {
       let appUrl: string = process.env.REACT_APP_API_URL;
-      user.avatar_url = user.avatar_url.replace('undefined', appUrl);
+      user.avatar_url = user.avatar_url.replace('undefined/', appUrl);
     }
 
     setData({
